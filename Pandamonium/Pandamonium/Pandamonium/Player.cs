@@ -84,8 +84,9 @@ namespace Pandamonium
         private const Buttons ShootButton = Buttons.RightTrigger;
 
         // Cool down for weapons
-        private float shootCoolDown = 5.0f;
-        
+        private float shootHeat = 0.0f;
+        private bool shootOverheat = false;
+
         public bool IsOnGround
         {
             get { return isOnGround; }
@@ -235,26 +236,37 @@ namespace Pandamonium
             // Check if the player wants to shoot
             if (gameTime.TotalGameTime - previousFireTime > fireTime)
             {
+                if (gamePadState.IsButtonUp(ShootButton))
+                {
+                    if (gamePadState.IsButtonDown(Buttons.LeftTrigger))
+                    {
+                        if (shootHeat < 0)
+                            shootHeat = 0;
+
+                        shootHeat -= 0.1f;
+                    }
+                }
+
                 if (gamePadState.IsButtonDown(ShootButton))
                 {
-                    if (shootCoolDown > 0)
+                    if (shootHeat > 5)
+                    {
+                        shootHeat = 5;
+                        shootOverheat = true;
+                    }
+
+                    if (shootHeat < 0 || shootHeat == 0)
+                    {
+                        shootHeat = 0;
+                        shootOverheat = false;
+                    }
+
+                    if (shootOverheat == false)
                     {
                         AddBullet(Vector2.Zero);
                         previousFireTime = gameTime.TotalGameTime;
-                        shootCoolDown -= 0.2f;
+                        shootHeat += 0.2f;
                     }
-                    else
-                    {
-                        if (shootCoolDown < 0)
-                            shootCoolDown = 0;
-                    }
-                }
-                else
-                {
-                    shootCoolDown += 0.05f;
-                    if (shootCoolDown > 5)
-                        shootCoolDown = 5;
-
                 }
             }
         }
@@ -503,7 +515,7 @@ namespace Pandamonium
             // Save the new bounds bottom
             previousBottom = bounds.Bottom;
         }
-        
+
         public void OnReachedExit()
         {
             sprite.PlayAnimation(celebrateAnimation);
@@ -530,7 +542,7 @@ namespace Pandamonium
 
             spriteBatch.DrawString(font, Convert.ToString(bullets.Count), Vector2.Zero, Color.White);
 
-            spriteBatch.DrawString(font, Convert.ToString(shootCoolDown), new Vector2(0, 60), Color.DarkBlue);
+            spriteBatch.DrawString(font, Convert.ToString(shootHeat), new Vector2(0, 60), Color.DarkBlue);
             spriteBatch.DrawString(font, Convert.ToString(level.levelHeight), new Vector2(0, 40), Color.White);
         }
         #endregion
