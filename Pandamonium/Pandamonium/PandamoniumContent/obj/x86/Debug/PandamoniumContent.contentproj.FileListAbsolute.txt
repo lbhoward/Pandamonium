@@ -1,0 +1,5 @@
+C:\Users\Dave\Documents\Visual Studio 2010\Projects\Games\Pandamonium\Pandamonium\PandamoniumContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Dave\Documents\Visual Studio 2010\Projects\Games\Pandamonium V0.3\Pandamonium\PandamoniumContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Dave\Pandamonium\Pandamonium\Pandamonium\PandamoniumContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Dave\Documents\Visual Studio 2010\Projects\Games\Pandamonium Latest GIT Build\Pandamonium\Pandamonium\PandamoniumContent\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\Pandamonium\Pandamonium\PandamoniumContent\obj\x86\Debug\ResolveAssemblyReference.cache
